@@ -1,2 +1,2 @@
-# Programming-Exercises
-Repository for programming exercises in multiple languages
+# Information
+Repository for programming exercises in multiple languages. The purpose of this repo is to practice basic programming logic.
