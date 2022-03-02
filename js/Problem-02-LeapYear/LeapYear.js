@@ -1,6 +1,6 @@
 /*Leap Year:
 
-Given a year by the user, determine if it is leap, regular, or secula.*/
+Given a year by the user, determine if it is leap, regular, or secular.*/
 
 let year = Number(prompt("Enter a Year: "));
 
