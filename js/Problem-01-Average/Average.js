@@ -5,8 +5,6 @@ of values entered by the user. The user will enter 0 as a sentinel value to indi
 that no further values will be provided. Your program should display an appropriate
 error message if the first value entered by the user is 0. */
 
-const prompt = require("prompt-sync")({ sigint: true});
-
 function computeAverage(array){
     let sum = 0;
 
@@ -25,18 +23,18 @@ while(true){
     let number = Number(prompt("Enter a number "));
 
     if (number === 0 && numbers.length === 0){
-        console.log("The first number can't be zero");
+        alert("The first number can't be zero");
         continue;
 
     } else if (number === 0 && numbers.length != 0){
-        console.log("Bye!");
+        alert("Bye!");
         break;
         
     } else {
         numbers.push(number);
         let average = computeAverage(numbers);
 
-        console.log(`The average is ${average}`);
+        alert(`The average is ${average}`);
     }
 
 }
