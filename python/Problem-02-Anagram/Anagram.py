@@ -19,7 +19,7 @@ class WordError(Exception):
         super().__init__(self.message)
 
     def __str__(self):
-        return f"{self.word} -> {self.message}"
+        return f"{self.word} --> {self.message}"
 
 #main program
 def main():
