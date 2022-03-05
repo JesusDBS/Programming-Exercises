@@ -20,7 +20,7 @@ if(number){
                 flag = false;
                 decimalIdex = character;
                 break;
-                
+
             } else{
                 integerPart.push(number[character]);
             }
@@ -29,7 +29,7 @@ if(number){
 
     decimalPart = number.slice(decimalIdex + 1, number.length);
 
-    alert(`The integer part of ${number} is ${integerPart.length} long and its decimal part is ${decimalPart.length} long`)
+    alert(`The integer part of ${number} is ${integerPart.length} long and its decimal part is ${decimalPart.length} long`);
 
 
 } else if(number === 0){
