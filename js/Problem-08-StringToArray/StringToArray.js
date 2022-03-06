@@ -4,7 +4,7 @@ Program a function that given a String will return an Array of texts separated b
 e.g. myFunction('hello world', ' ') will return ['hello', 'world'].*/
 
 function splitString(string, character) {
-    return string.split(character)
+    return string.split(character);
 }
 
 let string = prompt("insert a string: ");
