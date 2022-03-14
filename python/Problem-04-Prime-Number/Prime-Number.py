@@ -14,6 +14,12 @@ def main():
 
 
 def prime_number(n):
+    """Check if n is a prime number or not.
+
+    Parameters
+    ----------
+    n: int
+    """
     if n > 1:
         for number in range(2,n):
             if n%number == 0:
