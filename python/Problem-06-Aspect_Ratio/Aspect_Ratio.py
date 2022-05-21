@@ -44,7 +44,7 @@ def aspect_ratio(w,h):
     w: int
         Width of the image.
     h: int
-        Height of the imge.
+        Height of the image.
     """
     #validations
     assert isinstance(w, int), 'The width of the image must be an integer'
