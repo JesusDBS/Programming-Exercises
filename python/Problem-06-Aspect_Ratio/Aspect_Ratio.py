@@ -32,7 +32,7 @@ class ResponseTypeError(Exception):
         super().__init__(self.message)
 
     def __str__(self):
-        return f"{type(self.response.content)} --> {self.message}: {self.code}"
+        return f"{type(self.response.content)} --> {self.message}"
 
 
 #Calculates aspect ratio as width over height
