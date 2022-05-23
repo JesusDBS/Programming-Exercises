@@ -24,11 +24,11 @@ def inverse_string(string):
         if word:
             word = list(word.strip())
             word.reverse()
-            word = ''.join([letter for letter in word])
+            word = ''.join(word)
             string_reverse_list.append(word)
 
     if len(string_reverse_list) > 1:
-        string_reverse_list = ' '.join([word for word in string_reverse_list])
+        string_reverse_list = ' '.join(string_reverse_list)
 
         return string_reverse_list
 
