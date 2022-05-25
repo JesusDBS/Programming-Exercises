@@ -25,17 +25,15 @@ def count_words(string):
 
     #Cleaning string
     string = list(string.lower().split(' '))
-    string = list(filter(lambda word: word, string))
-    string = [re.sub("[^a-zA-Z]+", "",character) for character in string]
+    string = [re.sub("[^a-zA-Z]+", "",character) for character in string if character]
 
     words = dict.fromkeys(set(string), 0)
 
     #Counting words
     for key in words.keys():
         words[key] = len(list(filter(lambda word: word == key, string)))
-
-    for key, val in words.items():
-        print(f'The word "{key}" appears {val} times in your string!')
+        
+        print(f'The word "{key}" appears {words[key]} times in your string!')
 
 #----------------------------------------------------
 def main():
