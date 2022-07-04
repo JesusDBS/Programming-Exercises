@@ -12,7 +12,7 @@ while(true){
        continue;
 
    }else{
-       if(word === inverse(word)){
+       if(word.toLocaleLowerCase().replace(/\s/g,'') === inverse(word).replace(/\s/g,'').toLocaleLowerCase()){
         alert(`Your string "${word}" is a palindrome!`);
         break;
        }
