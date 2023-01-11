@@ -25,3 +25,26 @@ class BudgetApp:
         message = f'Your budget for {self.category} is {self.budget} {self.currency}'
         print(message)
         return message
+
+    @staticmethod
+    def check_vals(amount):
+        if not (isinstance(amount, int) or isinstance(amount, float)):
+            raise TypeError
+
+        if amount <= 0:
+            raise ValueError
+
+    def deposit_amount(self, amount: int):
+        self.check_vals(amount)
+        self.budget += amount
+        self.display_budget()
+
+    def withdraw_funds(self, amount: int):
+        self.check_vals(amount)
+        self.budget -= amount
+        self.display_budget()
+
+    def transfer_founds(self, amount: int, another_category):
+        self.check_vals(amount)
+        self.withdraw_funds(amount)
+        another_category.deposit_amount(amount)
