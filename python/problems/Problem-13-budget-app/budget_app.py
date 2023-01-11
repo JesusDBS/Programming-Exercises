@@ -12,4 +12,16 @@ Purpose: A simple budget class.
 
 
 class BudgetApp:
-    pass
+    """
+    A simple class to do your budgets.
+    """
+    currency = '$'
+
+    def __init__(self, category: str, budget=0):
+        self.category = category
+        self.budget = budget
+
+    def display_budget(self):
+        message = f'Your budget for {self.category} is {self.budget} {self.currency}'
+        print(message)
+        return message
