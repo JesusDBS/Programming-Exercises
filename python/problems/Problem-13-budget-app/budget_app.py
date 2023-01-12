@@ -16,10 +16,12 @@ class BudgetApp:
     A simple class to do your budgets.
     """
     currency = '$'
+    instances = list()
 
     def __init__(self, category: str, budget=0):
         self.category = category
         self.budget = budget
+        self.__class__.instances.append(self)
 
     def display_budget(self):
         message = f'Your budget for {self.category} is {self.budget} {self.currency}'
@@ -48,3 +50,22 @@ class BudgetApp:
         self.check_vals(amount)
         self.withdraw_funds(amount)
         another_category.deposit_amount(amount)
+
+    @classmethod
+    def get_total_spend(cls):
+        spend_by_category = list(map(lambda c: c.budget, cls.instances))
+        cls.total_spend = sum(spend_by_category)
+
+    @classmethod
+    def get_spend_by_category(cls):
+        cls.get_total_spend()
+        spend_by_category = dict()
+
+        for category in cls.instances:
+            spend_by_category[category.category] = category.budget / \
+                cls.total_spend * 100
+
+        cls.spend_by_category = spend_by_category
+
+        for key, val in spend_by_category.items():
+            print(f'{key}: {val:.2f} %')

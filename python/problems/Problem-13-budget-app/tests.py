@@ -8,6 +8,10 @@ class TestBudgetApp(unittest.TestCase):
         self.food = BudgetApp('food', 500)
         return super().setUp()
 
+    def tearDown(self) -> None:
+        BudgetApp.instances = []
+        return super().tearDown()
+
     def test_display_budget(self):
         message = 'Your budget for snacks is 100 $'
         self.assertEqual(message, self.snacks.display_budget())
@@ -56,6 +60,21 @@ class TestBudgetApp(unittest.TestCase):
     def test_transfer_founds_value_error_2(self):
         self.assertRaises(
             ValueError, self.snacks.transfer_founds, -1, self.food)
+
+    def test_number_of_instances(self):
+        self.assertEqual(len(BudgetApp.instances), 2)
+
+    def test_get_total_spend(self):
+        BudgetApp.get_total_spend()
+        self.assertEqual(BudgetApp.total_spend, 600)
+
+    def test_get_spend_by_category(self):
+        BudgetApp.get_spend_by_category()
+        result = {
+            'snacks': 16.666666666666664,
+            'food': 83.33333333333334
+        }
+        self.assertEqual(BudgetApp.spend_by_category, result)
 
 
 if __name__ == '__main__':
