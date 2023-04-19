@@ -56,7 +56,7 @@ class TestBusClass(unittest.TestCase):
         self.assertTrue(isinstance(self.bus, Vehicle))
 
     def test_bus_str(self):
-        message = "Color: white, Vehicle Name: School Volvo, Speed: 180, Milage: 12\n"
+        message = "Color: white, Bus Name: School Volvo, Speed: 180, Milage: 12\n"
         self.assert_stdout(self.bus, message)
     
     def test_bus_has_capacity_attr(self):

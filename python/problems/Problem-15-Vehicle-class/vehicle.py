@@ -31,7 +31,7 @@ class Vehicle:
         self.capacity = capacity
 
     def __str__(self) -> str:
-        return f"Color: {self.color}, Vehicle Name: {self.name}, Speed: {self.max_speed}, Milage: {self.milage}"
+        return f"Color: {self.color}, {self.__class__.__name__} Name: {self.name}, Speed: {self.max_speed}, Milage: {self.milage}"
     
     def seating_capacity(self):
         return f"The seating capacity of a {self.name} is {self.capacity} passengers"
