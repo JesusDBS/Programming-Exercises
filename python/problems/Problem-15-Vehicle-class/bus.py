@@ -6,4 +6,8 @@ class Bus(Vehicle):
     """
     def __init__(self, name:str, capacity:int=50, max_speed:int=0, milage:int=0) -> None:
         super().__init__(name=name, capacity=capacity, max_speed=max_speed, milage=milage)
+
+    def calculate_fare(self):
+        fare = super().calculate_fare()
+        return fare + fare*0.1 
     

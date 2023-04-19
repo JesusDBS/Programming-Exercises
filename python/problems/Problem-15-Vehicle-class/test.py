@@ -35,6 +35,9 @@ class TestVehicleClass(unittest.TestCase):
     def test_vehicle_has_capacity_attr(self):
         self.assertTrue(hasattr(self.vehicle, 'capacity'))
 
+    def test_calculate_fare(self):
+        self.assertEqual(self.vehicle.calculate_fare(), 100)
+
 class TestBusClass(unittest.TestCase):
     def setUp(self) -> None:
         self.bus = Bus(name='School Volvo', max_speed=180, milage=12)
@@ -62,6 +65,9 @@ class TestBusClass(unittest.TestCase):
     def test_bus_seatig_capacity(self):
         message = "The seating capacity of a School Volvo is 50 passengers\n"
         self.assert_stdout(self.bus.seating_capacity(), message)
+
+    def test_calculate_fare(self):
+        self.assertEqual(self.bus.calculate_fare(), 5500)
 
 
 if __name__ == "__main__":
