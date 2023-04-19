@@ -6,6 +6,8 @@
 # 4) Create a Bus child class that inherits from the Vehicle class. The default fare charge of any vehicle is seating capacity * 100. 
 # If Vehicle is Bus instance, we need to add an extra 10% on full fare as a maintenance charge. 
 # So total fare for bus instance will become the final amount = total fare + 10% of the total fare.
+# 5) Create a class called ‘Car’ with attributes such as brand, model and license plate and methods such as constructor, 
+# setters and getters for each of the attributes. This class should inherit from Vehicle.
 
 # ---------------------------------------------------
 
@@ -21,7 +23,7 @@ class Vehicle:
         assert isinstance(name, str), f'Name: {name} must be a string!'
         assert isinstance(max_speed, (int, float)), f'Max Speed:{max_speed} must be a Number data type!'
         assert isinstance(milage, (int, float)), f'Milage:{milage} must be a Number data type!'
-        assert max_speed > 0, f'Max Speed:{max_speed} must be a greater than zero!'
+        assert max_speed >= 0, f'Max Speed:{max_speed} must be a greater or equal than zero!'
         assert milage >= 0, f'Milage {milage} must be greater or equial than zero'
 
         #asignments

@@ -3,6 +3,7 @@ import unittest
 import unittest.mock
 from vehicle import Vehicle
 from bus import Bus
+from car import Car
 
 
 class TestVehicleClass(unittest.TestCase):
@@ -68,6 +69,34 @@ class TestBusClass(unittest.TestCase):
 
     def test_calculate_fare(self):
         self.assertEqual(self.bus.calculate_fare(), 5500)
+
+class TestCarClass(unittest.TestCase):
+    def setUp(self) -> None:
+        self.car = Car(name="Aveo", brand="Chevrolet", license_plate="1998Ve", model="aveo hb")
+        
+        return super().setUp()
+    
+    def tearDown(self) -> None:
+        del self.car
+        return super().tearDown()
+    
+    def test_car_is_child_of_vehicle(self):
+        self.assertTrue(isinstance(self.car, Vehicle))
+
+    def test_car_has_bran_attr(self):
+        self.assertTrue(hasattr(self.car, 'brand'))
+
+    def test_car_has_model_attr(self):
+        self.assertTrue(hasattr(self.car, 'model'))
+
+    def test_car_has_license_plate_attr(self):
+        self.assertTrue(hasattr(self.car, 'license_plate'))
+
+    def test_car_capacity(self):
+        self.assertEqual(self.car.capacity, 4)
+
+    def test_calculate_fare(self):
+        self.assertEqual(self.car.calculate_fare(), 400)
 
 
 if __name__ == "__main__":
