@@ -193,6 +193,18 @@ class TestIntegerToRoman(unittest.TestCase):
         number = IntegerToRoman(100)
         self.assertEqual(number.convert_to_roman(), 'C')
 
+    def test_convert_150_to_roman(self):
+        number = IntegerToRoman(150)
+        self.assertEqual(number.convert_to_roman(), 'CL')
+
+    def test_convert_1239_to_roman(self):
+        number = IntegerToRoman(1239)
+        self.assertEqual(number.convert_to_roman(), 'MCCXXXIX')
+
+    def test_convert_1549_to_roman(self):
+        number = IntegerToRoman(1549)
+        self.assertEqual(number.convert_to_roman(), 'MDXLIX')
+
 
 
 
