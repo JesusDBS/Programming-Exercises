@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from .user import User
 
 
@@ -61,12 +62,31 @@ class Book:
     def update_unidades_disponibles(self, unidades):
         self.unidades_disponibles = unidades
 
-    def prestar_libro(self, user: User):
-        # TODO Agregar diccionario con las llaves de usaurio, fecha de prestamo y devolución
-        # y agregar diccionario a la lista de prestamos del libro
-        # TODO Validar que la longitud de prestamnos no sea mayor a cantidad disponible
+    def __agregar_prestamo(self, data: dict):
+        data_values = ['user', 'borrow_date', 'retun_date']
+        if data and isinstance(data, dict):
+            for value in data_values:
+                if value not in data.keys():
+                    raise Exception(
+                        'LA DATA DE PRESTAMO DEBE CONTENER LOS SIGUIENTES ELEMENTOS: {}'.format(data_values))
 
+            self.prestamos.append(data)
+
+    @staticmethod
+    def __date_2_string(date: datetime, format: str = '%d/%m/%Y') -> str:
+        return date.strftime(format)
+
+    def __get_return_date(self, date: datetime, days: int = 3, format: str = '%d/%m/%Y') -> str:
+        return_date = date + timedelta(days=days)
+        return self.__date_2_string(return_date, format=format)
+
+    def prestar_libro(self, user: User):
         if self.unidades_disponibles > 1:
+            self.__agregar_prestamo({
+                'user': user,
+                'borrow_date': self.__date_2_string(datetime.now()),
+                'return_date': self.__get_return_date(datetime.now())
+            })
             self.unidades_disponibles = self.unidades - 1
         raise Exception(
             f'LAS UNDIADES DEL LIBRO "{self.titulo}" SE HAN AGOTADO. SOLO ESTA DISPONIBLE EL EJEMPLAR DE SALA.')
@@ -75,7 +95,8 @@ class Book:
         ...
 
     def mostrar_disponibilidad(self):
-        ...
+        message = f'Se encuentan {self.unidades_disponibles} de este libro {self.titulo}.'
+        print(message)
 
     def mostrar_datos(self):
         ...
