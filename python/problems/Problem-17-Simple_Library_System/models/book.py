@@ -70,7 +70,22 @@ class Book:
                     raise Exception(
                         'LA DATA DE PRESTAMO DEBE CONTENER LOS SIGUIENTES ELEMENTOS: {}'.format(data_values))
 
+            for prestamo in self.prestamos:
+                if data['user'] == prestamo['user']:
+                    raise Exception(
+                        f'El USUARIO {data['user'].name} YA TIENE UN PRESTAMO DE ESTE LIBRO!'
+                    )
+
             self.prestamos.append(data)
+
+    def __eliminar_prestamo(self, user: User):
+        if isinstance(user, User):
+            for prestamo in self.prestamos:
+                if user == prestamo['user']:
+                    self.prestamos.remove(prestamo)
+
+        raise Exception(
+            'DEBE ENVIAR UN USUARIO PARA ELIMINAR SU PRESTAMO!')
 
     @staticmethod
     def __date_2_string(date: datetime, format: str = '%d/%m/%Y') -> str:
@@ -87,19 +102,29 @@ class Book:
                 'borrow_date': self.__date_2_string(datetime.now()),
                 'return_date': self.__get_return_date(datetime.now())
             })
-            self.unidades_disponibles = self.unidades - 1
+            self.unidades_disponibles -= 1
         raise Exception(
             f'LAS UNDIADES DEL LIBRO "{self.titulo}" SE HAN AGOTADO. SOLO ESTA DISPONIBLE EL EJEMPLAR DE SALA.')
 
-    def devolver_libro(self):
-        ...
+    def devolver_libro(self, user: User):
+        if self.unidades_disponibles == self.unidades:
+            self.__eliminar_prestamo(user)
+            self.unidades_disponibles += 1
+        raise Exception(
+            f'EL LIBRO "{self.titulo}" NO TIENE PRESTAMOS ACTIVOS.')
 
     def mostrar_disponibilidad(self):
         message = f'Se encuentan {self.unidades_disponibles} de este libro {self.titulo}.'
         print(message)
 
     def mostrar_datos(self):
-        ...
+        print(self)
 
     def listar_prestamos(self):
-        ...
+        if not self.prestamos:
+            raise Exception('ESTE LIBRO NO TIENE PRESTAMOS')
+
+        print(f'Prestamnos del libro {self.titulo}: ', '\n')
+        for numero, prestamo in enumerate(self.prestamos):
+            numero += 1
+            print(f'{numero}) {prestamo['user'].name} - {prestamo['borrow_date']} - {prestamo['return_date']}')
