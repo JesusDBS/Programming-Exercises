@@ -117,6 +117,11 @@ class Book:
         message = f'Se encuentan {self.unidades_disponibles} de este libro {self.titulo}.'
         print(message)
 
+        if self.unidades_disponibles > 1:
+            return True
+
+        return False
+
     def mostrar_datos(self):
         print(self)
 
