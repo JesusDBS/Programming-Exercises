@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from .user import User
+# from .user import User
 
 
 class Book:
@@ -63,26 +63,28 @@ class Book:
         self.unidades_disponibles = unidades
 
     def __agregar_prestamo(self, data: dict):
-        data_values = ['user', 'borrow_date', 'retun_date']
+        data_values = ['user', 'borrow_date', 'return_date']
         if data and isinstance(data, dict):
             for value in data_values:
                 if value not in data.keys():
+                    print("VALUE", value)
                     raise Exception(
                         'LA DATA DE PRESTAMO DEBE CONTENER LOS SIGUIENTES ELEMENTOS: {}'.format(data_values))
 
             for prestamo in self.prestamos:
                 if data['user'] == prestamo['user']:
                     raise Exception(
-                        f'El USUARIO {data['user'].name} YA TIENE UN PRESTAMO DE ESTE LIBRO!'
+                        f"El USUARIO {data['user'].name} YA TIENE UN PRESTAMO DE ESTE LIBRO!"
                     )
 
             self.prestamos.append(data)
 
-    def __eliminar_prestamo(self, user: User):
-        if isinstance(user, User):
+    def __eliminar_prestamo(self, user=None):
+        if user is not None:
             for prestamo in self.prestamos:
                 if user == prestamo['user']:
                     self.prestamos.remove(prestamo)
+                    return True
 
         raise Exception(
             'DEBE ENVIAR UN USUARIO PARA ELIMINAR SU PRESTAMO!')
@@ -95,21 +97,31 @@ class Book:
         return_date = date + timedelta(days=days)
         return self.__date_2_string(return_date, format=format)
 
-    def prestar_libro(self, user: User):
+    def prestar_libro(self, user=None):
+        if user is None:
+            raise Exception(
+                'DEBE INGRESAR UN USUARIO PARA REALIZAR EL PRESTAMO.')
+
         if self.unidades_disponibles > 1:
             self.__agregar_prestamo({
                 'user': user,
                 'borrow_date': self.__date_2_string(datetime.now()),
                 'return_date': self.__get_return_date(datetime.now())
             })
-            self.unidades_disponibles -= 1
+            self.__uni_disponibles -= 1
+            return True
         raise Exception(
             f'LAS UNDIADES DEL LIBRO "{self.titulo}" SE HAN AGOTADO. SOLO ESTA DISPONIBLE EL EJEMPLAR DE SALA.')
 
-    def devolver_libro(self, user: User):
-        if self.unidades_disponibles == self.unidades:
+    def devolver_libro(self, user=None):
+        if user is None:
+            raise Exception(
+                'DEBE INGRESAR UN USUARIO PARA REALIZAR LA DEVOLUCIÓN.')
+
+        if self.unidades_disponibles != self.unidades:
             self.__eliminar_prestamo(user)
-            self.unidades_disponibles += 1
+            self.__uni_disponibles += 1
+            return True
         raise Exception(
             f'EL LIBRO "{self.titulo}" NO TIENE PRESTAMOS ACTIVOS.')
 
@@ -132,4 +144,5 @@ class Book:
         print(f'Prestamnos del libro {self.titulo}: ', '\n')
         for numero, prestamo in enumerate(self.prestamos):
             numero += 1
-            print(f'{numero}) {prestamo['user'].name} - {prestamo['borrow_date']} - {prestamo['return_date']}')
+            print(
+                f"{numero}) {prestamo['user'].name} - {prestamo['borrow_date']} - {prestamo['return_date']}")
